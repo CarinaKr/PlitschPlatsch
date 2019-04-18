@@ -31,18 +31,18 @@ namespace UnityAndroidSensors.Scripts.Core
 
         private void Start()
         {
-            #if UNITY_EDITOR
-            return;
-            #endif
+            //#if UNITY_EDITOR
+            //return;
+            //#endif
             
             UnitySensorPlugin.Instance.StartListenting(sensor);
         }
         
         private void Update()
         {
-            #if UNITY_EDITOR
-            return;
-            #endif
+            //#if UNITY_EDITOR
+            //return;
+            //#endif
             
             if (Time.frameCount % updateInterval == 0) {
 

@@ -23,9 +23,9 @@ namespace UnityAndroidSensors.Scripts.Core
             if (Instance == null) {
                 Instance = this;
                 
-                #if UNITY_ANDROID
+                //#if UNITY_ANDROID
                     InitializePlugin();
-                #endif
+                //#endif
                 
                 DontDestroyOnLoad(this);
             } else if(Instance != this) {
@@ -35,9 +35,9 @@ namespace UnityAndroidSensors.Scripts.Core
 
         public void StartListenting(Sensor sensor)
         {
-            #if UNITY_ANDROID
+            //#if UNITY_ANDROID
                 plugin?.Call(StartListening, sensor.ToString().ToLower());
-            #endif
+            //#endif
         }
 
         public float[] GetSensorValue(Sensor sensor)
@@ -46,18 +46,18 @@ namespace UnityAndroidSensors.Scripts.Core
                 return new float[1];
             }
             
-            #if UNITY_ANDROID
+           // #if UNITY_ANDROID
                 return plugin.Call<float[]>(SensorValues, sensor.ToString().ToLower());
-            #endif
+            //#endif
 
             return null;
         }
         
         private void OnApplicationQuit ()
         {
-            #if UNITY_ANDROID
+            //#if UNITY_ANDROID
                 TerminatePlugin();
-            #endif
+            //#endif
         }
         
         private void InitializePlugin()
