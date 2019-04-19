@@ -1,33 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolBehaviour : MonoBehaviour
 {
     [SerializeField] int poolSize;
-    [SerializeField] private GameObject oxygenBubblePrefab;
+    [SerializeField] private GameObject poolPrefab;
 
-    private List<GameObject> bubbles;
+    private List<GameObject> objects;
+    private Action onCollectBubble;
+    
+
+    private void OnEnable()
+    {
+        BubbleManager.CollectBubble += ReleaseObject;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        bubbles = new List<GameObject>();
+        objects = new List<GameObject>();
 
         for(int i=0;i<poolSize;i++)
         {
-            GameObject newBubble = Instantiate(oxygenBubblePrefab, transform);
-            bubbles.Add(newBubble);
-            newBubble.SetActive(false);
+            GameObject newObject = Instantiate(poolPrefab, transform);
+            objects.Add(newObject);
+            newObject.SetActive(false);
         }
     }
 
     public GameObject GetObject()
     {
-        foreach(GameObject bubble in bubbles)
+        foreach(GameObject obj in objects)
         {
-            if (bubble.activeSelf)
-                return bubble;
+            if (!obj.activeSelf)
+            {
+                obj.SetActive(true);
+                return obj;
+            }
         }
 
         return null;
@@ -35,7 +46,7 @@ public class PoolBehaviour : MonoBehaviour
 
     public void ReleaseObject(GameObject bubble)
     {
-        if (bubbles.Contains(bubble))
+        if (objects.Contains(bubble))
             bubble.SetActive(false);
     }
 }

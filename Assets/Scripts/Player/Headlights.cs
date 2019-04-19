@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityAndroidSensors.Scripts.Utils.SmartVars;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class Headlights : MonoBehaviour
         PROXIMITY
     }
 
+    public static Action<bool> onSwitchLight;
+    public bool isLightOn { get; private set; } 
+
     [SerializeField] private Slider energySlider;
     [SerializeField] private SpriteRenderer headlightsRenderer;
     [SerializeField] private float maxEnergy, loseEnergySpeed, gainEnergySpeed;
@@ -21,7 +25,6 @@ public class Headlights : MonoBehaviour
 
 
     private GameManager gameManger;
-    private bool isOn;
     private float energyLeft;
     private FloatVar inputVar;
 
@@ -44,20 +47,21 @@ public class Headlights : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (inputType)
-        {
-            case INPUT_TYPE.LIGHT:
-                debugText.text = "" + lightVar.value;
-                break;
-            case INPUT_TYPE.PROXIMITY:
-                debugText.text = "" + proximityVar.value;
-                break;
-        }
+        //switch (inputType)
+        //{
+        //    case INPUT_TYPE.LIGHT:
+        //        debugText.text = "" + lightVar.value;
+        //        break;
+        //    case INPUT_TYPE.PROXIMITY:
+        //        debugText.text = "" + proximityVar.value;
+        //        break;
+        //}
         if (!gameManger.isPlaying)
             return;
 
-        if (isOn || inputVar.value>=5f)
+        if (isLightOn || inputVar.value>=5f)
         {
+            if (!isLightOn) SwitchOn();
             energyLeft -= loseEnergySpeed * Time.deltaTime; 
             if (energyLeft <= 0)
             {
@@ -65,7 +69,7 @@ public class Headlights : MonoBehaviour
                 SwitchOff();
             }
         }
-        else if(!isOn && energyLeft<maxEnergy)
+        else if(!isLightOn && energyLeft<maxEnergy)
         {
             energyLeft = Mathf.Min(energyLeft + (gainEnergySpeed * Time.deltaTime), maxEnergy);
         }
@@ -75,13 +79,26 @@ public class Headlights : MonoBehaviour
 
     public void SwitchOn()
     {
-        isOn = true;
+        isLightOn = true;
         headlightsRenderer.enabled = true;
+
+        if(onSwitchLight!=null)
+        {
+         onSwitchLight.Invoke(true);
+            debugText.text = "invoke true";
+        }
     }
 
     public void SwitchOff()
     {
-        isOn = false;
+        isLightOn = false;
         headlightsRenderer.enabled = false;
+
+        if (onSwitchLight != null)
+        {
+            debugText.text = "invoke false";
+            onSwitchLight.Invoke(false);
+        }
+
     }
 }
