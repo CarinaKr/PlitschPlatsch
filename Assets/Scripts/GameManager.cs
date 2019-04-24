@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject startButton;
     [SerializeField] private Text pointsText;
     [SerializeField] private int pointsPerBubble;
+    [SerializeField] private GameObject pauseScreen;
 
     public Vector3 calibratedTilt { get; private set; }
     public bool isPlaying { get; set; }
+    public bool isPaused { get; set; }
     public int points { get; set; }
 
     private int highscore;
@@ -31,13 +33,30 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        BubbleManager.CollectBubble += CollectPoints;
+    }
+    private void OnDisable()
+    {
+        BubbleManager.CollectBubble -= CollectPoints;
     }
 
-    public void CollectBubble()
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Pause();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        { Pause(); }
+    }
+
+    public void CollectPoints(GameObject obj)
     {
         points += pointsPerBubble;
         pointsText.text = "Points: " + points;
@@ -48,5 +67,26 @@ public class GameManager : MonoBehaviour
         calibratedTilt = new Vector3(Input.acceleration.x, Input.acceleration.y, Input.acceleration.z);
         startButton.SetActive(false);
         isPlaying = true;
+    }
+
+    public void Pause()
+    {
+        pauseScreen.SetActive(true);
+        isPaused = true;
+        isPlaying = false;
+        Time.timeScale = 0;
+    }
+
+    public void Continue()
+    {
+        isPaused = false;
+        pauseScreen.SetActive(false);
+        isPlaying = true;
+        Time.timeScale = 1;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

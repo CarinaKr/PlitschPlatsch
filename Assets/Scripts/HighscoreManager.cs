@@ -11,7 +11,7 @@ public class HighscoreManager : MonoBehaviour
         
     }
 
-    [MenuItem("Tools/PlayerPrefs/Clear all Player Prefs")]
+    //[MenuItem("Tools/PlayerPrefs/Clear all Player Prefs")]
     public static void ClearPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
