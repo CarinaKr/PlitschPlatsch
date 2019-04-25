@@ -1,0 +1,68 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MenuButtons : MonoBehaviour
+{
+    [SerializeField] private GameObject creditsScreen, tutorialScreen;
+    [SerializeField] private GameObject buttons;
+
+    private MenuState menuState;
+    private GameManager gameManager;
+    private AsyncOperation levelAsync;
+
+    public enum MenuState
+    {
+        MENU,
+        CREDITS,
+        TUTORIAL
+    }
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        levelAsync = SceneManager.LoadSceneAsync(gameManager.gameSceneNumber, LoadSceneMode.Additive);
+        levelAsync.allowSceneActivation = false;
+    }
+
+    public void ShowCredits()
+    {
+        creditsScreen.SetActive(true);
+        menuState = MenuState.CREDITS;
+    }
+
+    public void ShowTutorial()
+    {
+        tutorialScreen.SetActive(true);
+        menuState = MenuState.TUTORIAL;
+    }
+
+    public void StartGame()
+    {
+        gameManager.Calibrate();
+        buttons.SetActive(false);
+        SceneManager.UnloadSceneAsync(gameManager.menuSceneNumber);
+        levelAsync.allowSceneActivation = true;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            switch(menuState)
+            {
+                case MenuState.TUTORIAL:
+                    tutorialScreen.SetActive(false);
+                    break;
+                case MenuState.CREDITS:
+                    creditsScreen.SetActive(false);
+                    break;
+                case MenuState.MENU:
+                    AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+                    activity.Call<bool>("moveTaskToBack", true);
+                    break;
+            }
+        }
+    }
+}

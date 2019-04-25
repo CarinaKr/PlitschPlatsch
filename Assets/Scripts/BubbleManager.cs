@@ -11,6 +11,7 @@ public class BubbleManager : MonoBehaviour
     [SerializeField] private float leftBorder;
     [SerializeField] Sprite lightBubble, darkBubble;
     [SerializeField] SpriteRenderer foreground;
+    [SerializeField] private float speed;
 
     private PoolBehaviour pool;
     private GameManager gameManager;
@@ -20,11 +21,6 @@ public class BubbleManager : MonoBehaviour
     private void OnEnable()
     {
         Headlights.onSwitchLight += SwitchLight;
-
-        //if(headlights==null)
-        //    headlights = FindObjectOfType<Headlights>();
-        //foreground.sprite = isLightActive ? lightBubble : darkBubble;
-        //SwitchLight(headlights.isLightOn);
     }
     private void OnDisable()
     {
@@ -38,9 +34,7 @@ public class BubbleManager : MonoBehaviour
         pool = GetComponentInParent<PoolBehaviour>();
         
         rb = GetComponent<Rigidbody2D>();
-
-        //foreground.sprite = isLightActive ? lightBubble : darkBubble;
-        //SwitchLight(headlights.isLightOn);
+        
     }
 
     // Update is called once per frame
@@ -49,7 +43,7 @@ public class BubbleManager : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        rb.velocity = new Vector2(gameManager.gameSpeed * -1 * Time.deltaTime, 0);
+        rb.velocity = new Vector2(speed * -1 * Time.deltaTime, 0);
         if (rb.transform.position.x < leftBorder)
         {
             pool.ReleaseObject(gameObject);

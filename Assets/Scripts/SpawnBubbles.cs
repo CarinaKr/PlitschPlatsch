@@ -6,7 +6,7 @@ public class SpawnBubbles : MonoBehaviour
 {
     [SerializeField] private float spawnDelay;
     [SerializeField] private Transform[] spawnPositions;
-    [SerializeField] [Range(0,1)] private float chanceDarkActive;
+    [SerializeField] [Range(0, 1)] private float chanceDarkActive, chanceSameHeight;
 
     private PoolBehaviour spawnPositionsPool;
     private GameManager gameManager;
@@ -27,7 +27,7 @@ public class SpawnBubbles : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        if(time>=spawnDelay)
+        if (time>=spawnDelay)
         {
             Spawn();
             time = 0;
@@ -38,17 +38,35 @@ public class SpawnBubbles : MonoBehaviour
     public void Spawn()
     {
         int nextPosDifF;
-        if(lastPosition==0)
-            nextPosDifF = Random.Range(0, 2);
+        float randValue = Random.Range(0f,1f);
+        if (lastPosition==0)
+        {
+            if (randValue < chanceSameHeight)
+                nextPosDifF = 0;
+            else
+                nextPosDifF = 1;
+        }
         else if(lastPosition==spawnPositions.Length-1)
-            nextPosDifF = Random.Range(-1, 1);
+        {
+            if (randValue < chanceSameHeight)
+                nextPosDifF = 0;
+            else
+                nextPosDifF = -1;
+        }
         else
-            nextPosDifF = Random.Range(-1, 2);
+        {
+            if (randValue < chanceSameHeight)
+                nextPosDifF = 0;
+            else
+                nextPosDifF = Random.Range(0, 2) == 0 ? -1 : 1;
+        }
 
         GameObject nextBubble=spawnPositionsPool.GetObject();
         nextBubble.transform.position = spawnPositions[lastPosition + nextPosDifF].position;
 
         float active = Random.Range(0f, 1f);
         nextBubble.GetComponent<BubbleManager>().isLightActive = active <= chanceDarkActive ? false : true;
+
+        lastPosition = lastPosition + nextPosDifF;
     }
 }

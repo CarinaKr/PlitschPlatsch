@@ -19,7 +19,6 @@ public class Headlights : MonoBehaviour
     [SerializeField] private Slider energySlider;
     [SerializeField] private SpriteRenderer headlightsRenderer;
     [SerializeField] private float maxEnergy, loseEnergySpeed, gainEnergySpeed;
-    [SerializeField] private Text debugText;
     [SerializeField] private FloatVar lightVar, proximityVar;
     [SerializeField] INPUT_TYPE inputType; 
 
@@ -84,8 +83,7 @@ public class Headlights : MonoBehaviour
 
         if(onSwitchLight!=null)
         {
-         onSwitchLight.Invoke(true);
-            debugText.text = "invoke true";
+            onSwitchLight.Invoke(true);
         }
     }
 
@@ -96,7 +94,6 @@ public class Headlights : MonoBehaviour
 
         if (onSwitchLight != null)
         {
-            debugText.text = "invoke false";
             onSwitchLight.Invoke(false);
         }
 

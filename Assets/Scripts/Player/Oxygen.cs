@@ -37,7 +37,7 @@ public class Oxygen : MonoBehaviour
         if (oxygenLeft <= 0)
         {
             oxygenLeft = 0;
-            Debug.Log("Game Over");
+            gameManager.GameOver();
         }
 
         oxygenSlider.value = oxygenLeft / maxOxygen;
@@ -48,4 +48,5 @@ public class Oxygen : MonoBehaviour
         oxygenLeft = Mathf.Min(oxygenLeft + oxygenPerBubble, maxOxygen);
         
     }
+    
 }
