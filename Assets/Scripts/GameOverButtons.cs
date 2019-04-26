@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOverButtons : MonoBehaviour
 {
+    [SerializeField] private GameObject exitScreen;
+
     private GameManager gameManager;
     private SceneLoader sceneLoader;
 
@@ -23,15 +25,24 @@ public class GameOverButtons : MonoBehaviour
 
     public void BackToMenu()
     {
-        sceneLoader.BackToMenu();
+        sceneLoader.BackToMenu(SceneLoader.Scenes.GAME_OVER);
+    }
+
+    public void Quit(bool exit)
+    {
+        if (exit)
+            Application.Quit();
+        else
+            exitScreen.SetActive(false);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-            activity.Call<bool>("moveTaskToBack", true);
+            //AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+            //activity.Call<bool>("moveTaskToBack", true);
+            exitScreen.SetActive(true);
         }
     }
 }

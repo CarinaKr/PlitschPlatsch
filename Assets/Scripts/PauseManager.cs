@@ -7,6 +7,14 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
 
     private bool isPaused;
+    private GameManager gameManager;
+    private SceneLoader sceneLoader;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        sceneLoader = FindObjectOfType<SceneLoader>();
+    }
 
     private void OnApplicationPause(bool pause)
     {
@@ -37,5 +45,16 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void BackToMenu()
+    {
+        sceneLoader.BackToMenu(SceneLoader.Scenes.LEVEL);
+    }
+
+    public void Recalibrate()
+    {
+        gameManager.Calibrate();
+        Continue();
     }
 }

@@ -83,7 +83,7 @@ public class SceneLoader : MonoBehaviour
         levelAsync.allowSceneActivation = true;
     }
 
-    public void BackToMenu()
+    public void BackToMenu(Scenes scene)
     {
         //levelAsync.allowSceneActivation = true;
         //SceneManager.UnloadSceneAsync(gameSceneNumber);
@@ -92,6 +92,18 @@ public class SceneLoader : MonoBehaviour
         //SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
 
         StartCoroutine("Back");
+        SceneManager.UnloadSceneAsync(gameSceneNumber);
+        switch(scene)
+        {
+            case Scenes.GAME_OVER:
+                SceneManager.UnloadSceneAsync(gameOverSceneNumber);
+                break;
+            case Scenes.LEVEL:
+                SceneManager.UnloadSceneAsync(gameSceneNumber);
+                break;
+        }
+        
+        SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
     }
 
     public IEnumerator Back()
@@ -101,8 +113,6 @@ public class SceneLoader : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-        SceneManager.UnloadSceneAsync(gameSceneNumber);
-        SceneManager.UnloadSceneAsync(gameOverSceneNumber);
-        SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
+       
     }
 }

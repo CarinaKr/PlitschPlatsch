@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Text pointsText;
     [SerializeField] private int pointsPerBubble;
-    [SerializeField] private int multiplyFactor;
+    [SerializeField] private int pointsMultiplyFactor;
+    [SerializeField] private Button muteButton;
+    [SerializeField] private Color muteColor, defaultColor;
 
     //public float gameSpeed {get;set;}
     public Vector3 calibratedTilt { get; private set; }
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     private int highscore;
     private HighscoreManager highscoreManager;
     private SceneLoader sceneLoader;
+    private bool isMute;
     
 
     private void Awake()
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour
     {
         highscoreManager = GetComponent<HighscoreManager>();
         sceneLoader=GetComponent<SceneLoader>();
+
+        CheckMute();
     }
 
     private void OnEnable()
@@ -57,7 +62,7 @@ public class GameManager : MonoBehaviour
     public void CollectPoints(GameObject obj)
     {
         //points += pointsPerBubble;
-        points += Mathf.RoundToInt(Time.timeScale * multiplyFactor);
+        points += Mathf.RoundToInt(Time.timeScale * pointsMultiplyFactor);
         pointsText.text = "Points: " + points;
     }
 
@@ -80,5 +85,26 @@ public class GameManager : MonoBehaviour
         sceneLoader.LoadGameOver();
 
         highscoreManager.UpdateHighscore(points);
+    }
+
+    public void Mute()
+    {
+        isMute = !isMute;
+        int mute = isMute ? 0 : 1;
+        PlayerPrefs.SetInt("Mute", mute);
+        CheckMute();
+    }
+
+    private void CheckMute()
+    {
+        if (PlayerPrefs.HasKey("Mute"))
+            isMute = PlayerPrefs.GetInt("Mute") == 0 ? true : false;
+        else
+            isMute = false;
+
+        if (isMute)
+            muteButton.GetComponent<Image>().color = muteColor;
+        else
+            muteButton.GetComponent<Image>().color = defaultColor;
     }
 }

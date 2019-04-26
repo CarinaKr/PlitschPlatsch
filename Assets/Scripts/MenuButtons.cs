@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    [SerializeField] private GameObject creditsScreen, tutorialScreen;
+    [SerializeField] private GameObject creditsScreen, tutorialScreen, exitScreen;
     [SerializeField] private GameObject buttons;
 
     private MenuState menuState;
@@ -46,6 +46,28 @@ public class MenuButtons : MonoBehaviour
         sceneLoader.StartLevel(SceneLoader.Scenes.MENU);
     }
 
+    public void Back()
+    {
+        switch (menuState)
+        {
+            case MenuState.TUTORIAL:
+                tutorialScreen.SetActive(false);
+                break;
+            case MenuState.CREDITS:
+                creditsScreen.SetActive(false);
+                break;
+        }
+        menuState = MenuState.MENU;
+    }
+
+    public void Quit(bool exit)
+    {
+        if (exit)
+            Application.Quit();
+        else
+            exitScreen.SetActive(false);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -59,10 +81,12 @@ public class MenuButtons : MonoBehaviour
                     creditsScreen.SetActive(false);
                     break;
                 case MenuState.MENU:
-                    AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-                    activity.Call<bool>("moveTaskToBack", true);
+                    //AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+                    //activity.Call<bool>("moveTaskToBack", true);
+                    exitScreen.SetActive(true);
                     break;
             }
+            menuState = MenuState.MENU;
         }
     }
 }
