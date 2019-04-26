@@ -6,26 +6,24 @@ using UnityEngine.SceneManagement;
 public class GameOverButtons : MonoBehaviour
 {
     private GameManager gameManager;
-    private AsyncOperation levelAsync;
+    private SceneLoader sceneLoader;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        levelAsync = SceneManager.LoadSceneAsync(gameManager.gameSceneNumber, LoadSceneMode.Additive);
-        levelAsync.allowSceneActivation = false;
+        sceneLoader = FindObjectOfType<SceneLoader>();
+        sceneLoader.PrepareLevel();
     }
 
     public void StartGame()
     {
         gameManager.Calibrate();
-        SceneManager.UnloadSceneAsync(gameManager.gameOverSceneNumber);
-        levelAsync.allowSceneActivation = true;
+        sceneLoader.StartLevel(SceneLoader.Scenes.GAME_OVER);
     }
 
     public void BackToMenu()
     {
-        SceneManager.UnloadSceneAsync(gameManager.gameOverSceneNumber);
-        SceneManager.LoadScene(gameManager.menuSceneNumber, LoadSceneMode.Additive);
+        sceneLoader.BackToMenu();
     }
 
     private void Update()

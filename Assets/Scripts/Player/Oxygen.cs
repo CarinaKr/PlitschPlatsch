@@ -8,6 +8,7 @@ public class Oxygen : MonoBehaviour
     [SerializeField] private Slider oxygenSlider;
     [SerializeField] private float maxOxygen, loseOxygenSpeed;
     [SerializeField] private float oxygenPerBubble;
+    [SerializeField] private float multiplyFactor;
 
     private GameManager gameManager;
     private float oxygenLeft;
@@ -33,7 +34,7 @@ public class Oxygen : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        oxygenLeft -= loseOxygenSpeed * Time.deltaTime;
+        oxygenLeft -= loseOxygenSpeed * Time.deltaTime * multiplyFactor;
         if (oxygenLeft <= 0)
         {
             oxygenLeft = 0;

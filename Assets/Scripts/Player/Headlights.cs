@@ -61,7 +61,7 @@ public class Headlights : MonoBehaviour
         if (isLightOn || inputVar.value>=5f)
         {
             if (!isLightOn) SwitchOn();
-            energyLeft -= loseEnergySpeed * Time.deltaTime; 
+            energyLeft -= loseEnergySpeed * Time.deltaTime ; 
             if (energyLeft <= 0)
             {
                 energyLeft = 0;

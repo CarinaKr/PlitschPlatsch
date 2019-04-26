@@ -9,8 +9,9 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private GameObject buttons;
 
     private MenuState menuState;
-    private GameManager gameManager;
     private AsyncOperation levelAsync;
+    private GameManager gameManager;
+    private SceneLoader sceneLoader;
 
     public enum MenuState
     {
@@ -22,8 +23,8 @@ public class MenuButtons : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        levelAsync = SceneManager.LoadSceneAsync(gameManager.gameSceneNumber, LoadSceneMode.Additive);
-        levelAsync.allowSceneActivation = false;
+        sceneLoader = FindObjectOfType<SceneLoader>();
+        sceneLoader.PrepareLevel();
     }
 
     public void ShowCredits()
@@ -42,8 +43,7 @@ public class MenuButtons : MonoBehaviour
     {
         gameManager.Calibrate();
         buttons.SetActive(false);
-        SceneManager.UnloadSceneAsync(gameManager.menuSceneNumber);
-        levelAsync.allowSceneActivation = true;
+        sceneLoader.StartLevel(SceneLoader.Scenes.MENU);
     }
 
     private void Update()

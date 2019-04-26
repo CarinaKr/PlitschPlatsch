@@ -11,17 +11,7 @@ public class HighscoreManager : MonoBehaviour
     [SerializeField] private Color newHighscoreColor,defaultHighscoreColor;
 
     private int currentHighscore;
-    private GameManager gameManager;
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        gameManager = GetComponent<GameManager>();
-    }
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    //private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +24,6 @@ public class HighscoreManager : MonoBehaviour
             currentHighscore = 0;
 
         highscoreText.text = "Highscore: " + currentHighscore;
-    }
-
-    public void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
-    {
-        if (scene.buildIndex == gameManager.menuSceneNumber)
-            highscoreText.color = defaultHighscoreColor;
     }
 
     //[MenuItem("Tools/PlayerPrefs/Clear all Player Prefs")]
@@ -68,5 +52,10 @@ public class HighscoreManager : MonoBehaviour
         PlayerPrefs.SetInt("Highscore", points);
         highscoreText.color = newHighscoreColor;
         highscoreText.text = "Highscore: " + points;
+    }
+
+    public void ResetTextColor()
+    {
+        highscoreText.color = defaultHighscoreColor;
     }
 }
