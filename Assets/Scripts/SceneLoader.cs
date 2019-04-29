@@ -91,9 +91,20 @@ public class SceneLoader : MonoBehaviour
         //SceneManager.UnloadSceneAsync(gameOverSceneNumber);
         //SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
 
-        StartCoroutine("Back");
+        StartCoroutine("Back",scene);
+        
+    }
+
+    public IEnumerator Back(Scenes scene)
+    {
+        levelAsync.allowSceneActivation = true;
+        while(!levelAsync.isDone)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         SceneManager.UnloadSceneAsync(gameSceneNumber);
-        switch(scene)
+        switch (scene)
         {
             case Scenes.GAME_OVER:
                 SceneManager.UnloadSceneAsync(gameOverSceneNumber);
@@ -102,17 +113,7 @@ public class SceneLoader : MonoBehaviour
                 SceneManager.UnloadSceneAsync(gameSceneNumber);
                 break;
         }
-        
-        SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
-    }
 
-    public IEnumerator Back()
-    {
-        levelAsync.allowSceneActivation = true;
-        while(!levelAsync.isDone)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-       
+        SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
     }
 }
