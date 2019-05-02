@@ -53,7 +53,7 @@ public class BubbleManager : MonoBehaviour
         {
             pool.ReleaseObject(gameObject);
         }
-        if(/*!isLightActive&&*/!isInCone)
+        if (isLightActive && !isInCone)
         {
             foreground.enabled = false;
             background.enabled = true;

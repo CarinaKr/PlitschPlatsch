@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Oxygen : MonoBehaviour
 {
-    [SerializeField] private Slider oxygenSlider;
+    //[SerializeField] private Slider oxygenSlider;
+    [SerializeField] private Image oxygenFillImage;
     [SerializeField] private float maxOxygen, loseOxygenSpeed;
     [SerializeField] private float oxygenPerBubble;
     //[SerializeField] private float multiplyFactor;
@@ -41,7 +42,7 @@ public class Oxygen : MonoBehaviour
             gameManager.GameOver();
         }
 
-        oxygenSlider.value = oxygenLeft / maxOxygen;
+        oxygenFillImage.fillAmount = oxygenLeft / maxOxygen;
     }
 
     private void AddOxygen(GameObject bubble)

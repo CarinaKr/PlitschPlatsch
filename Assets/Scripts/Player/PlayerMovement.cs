@@ -24,10 +24,12 @@ public class PlayerMovement : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        moveDir.y = (Input.acceleration.y - gameManager.calibratedTilt.y)*startSpeed*gameManager.gameSpeed;
+        moveDir.y = (Input.acceleration.y - gameManager.calibratedTilt.y)*Time.deltaTime* startSpeed*gameManager.gameSpeed;
+        moveDir.x = (Input.acceleration.x - gameManager.calibratedTilt.x) *Time.deltaTime * startSpeed * gameManager.gameSpeed;
         //moveDir.y = Mathf.Round(moveDir.y * 100f) / 100f;
         //Debug.Log( "acc.y: " + Input.acceleration.y +"; cal.y: " + gameManager.calibratedTilt.y + "; moveDir.y: " + moveDir.y);
         //transform.Translate(moveDir.normalized * Time.deltaTime * speed);
-        rb.velocity = new Vector2(0, moveDir.y);
+        rb.velocity = new Vector2(moveDir.x, moveDir.y);
+
     }
 }
