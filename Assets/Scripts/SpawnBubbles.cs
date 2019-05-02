@@ -27,7 +27,7 @@ public class SpawnBubbles : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        if (time>=spawnDelay)
+        if (time>=spawnDelay*(1/gameManager.gameSpeed))
         {
             Spawn();
             time = 0;

@@ -43,7 +43,7 @@ public class BubbleManager : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        rb.velocity = new Vector2(speed * -1 * Time.deltaTime, 0);
+        rb.velocity = new Vector2(speed * -1 * Time.deltaTime*gameManager.gameSpeed, 0);
         if (rb.transform.position.x < leftBorder)
         {
             pool.ReleaseObject(gameObject);

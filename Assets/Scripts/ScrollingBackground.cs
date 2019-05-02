@@ -6,7 +6,7 @@ public class ScrollingBackground : MonoBehaviour
 {
     [SerializeField] private float leftBorder;
     [SerializeField] private float tileWidth;
-    [SerializeField] private float speed;
+    [SerializeField] private float startSpeed;
 
     private Rigidbody2D[] backgroundTiles;
     private GameManager gameManager;
@@ -23,7 +23,7 @@ public class ScrollingBackground : MonoBehaviour
     {
         foreach(Rigidbody2D rb in backgroundTiles)
         {
-            rb.velocity = new Vector2(speed*-1*Time.deltaTime, 0);
+            rb.velocity = new Vector2(startSpeed*-1*Time.deltaTime*gameManager.gameSpeed, 0);
             if(rb.transform.position.x<leftBorder)
             {
                 rb.transform.position = new Vector2(rb.transform.position.x+(tileWidth*2),0);

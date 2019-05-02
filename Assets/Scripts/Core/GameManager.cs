@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button muteButton;
     [SerializeField] private Color muteColor, defaultColor;
 
-    //public float gameSpeed {get;set;}
+    public float gameSpeed { get; set; }
     public Vector3 calibratedTilt { get; private set; }
     public bool isPlaying { get; set; }
     public int points { get; set; }
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         highscoreManager = GetComponent<HighscoreManager>();
         sceneLoader=GetComponent<SceneLoader>();
 
+        gameSpeed = 1;
         CheckMute();
     }
 

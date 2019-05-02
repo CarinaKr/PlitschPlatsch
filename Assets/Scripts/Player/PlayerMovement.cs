@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float startSpeed;
 
     private GameManager gameManager;
     private Vector3 moveDir;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         if (!gameManager.isPlaying)
             return;
 
-        moveDir.y = (Input.acceleration.y - gameManager.calibratedTilt.y)*speed;
+        moveDir.y = (Input.acceleration.y - gameManager.calibratedTilt.y)*startSpeed*gameManager.gameSpeed;
         //moveDir.y = Mathf.Round(moveDir.y * 100f) / 100f;
         //Debug.Log( "acc.y: " + Input.acceleration.y +"; cal.y: " + gameManager.calibratedTilt.y + "; moveDir.y: " + moveDir.y);
         //transform.Translate(moveDir.normalized * Time.deltaTime * speed);
