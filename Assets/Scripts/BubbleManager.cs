@@ -9,8 +9,8 @@ public class BubbleManager : MonoBehaviour
     public bool _isLightActive;
 
     [SerializeField] private float leftBorder;
-    [SerializeField] Sprite lightBubble, darkBubble;
-    [SerializeField] SpriteRenderer foreground;
+    [SerializeField] Sprite lightBubbleForeground,lightBubbleBackground, darkBubbleForeground,darkBubbleBackground;
+    [SerializeField] SpriteRenderer foreground, background;
     [SerializeField] private float speed;
 
     private PoolBehaviour pool;
@@ -81,7 +81,8 @@ public class BubbleManager : MonoBehaviour
             if (headlights == null)
                 headlights = FindObjectOfType<Headlights>();
 
-            foreground.sprite = isLightActive ? lightBubble : darkBubble;
+            foreground.sprite = isLightActive ? lightBubbleForeground : darkBubbleForeground;
+            background.sprite = isLightActive ? lightBubbleBackground : darkBubbleBackground;
             SwitchLight(headlights.isLightOn);
         }
     }

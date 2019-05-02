@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int pointsPerBubble;
     [SerializeField] private int pointsMultiplyFactor;
     [SerializeField] private Button muteButton;
-    [SerializeField] private Color muteColor, defaultColor;
+    [SerializeField] private Sprite muteSprite, defaultSprite;
 
     public float gameSpeed { get; set; }
     public Vector3 calibratedTilt { get; private set; }
@@ -104,8 +104,8 @@ public class GameManager : MonoBehaviour
             isMute = false;
 
         if (isMute)
-            muteButton.GetComponent<Image>().color = muteColor;
+            muteButton.GetComponent<Image>().sprite = muteSprite;
         else
-            muteButton.GetComponent<Image>().color = defaultColor;
+            muteButton.GetComponent<Image>().sprite = defaultSprite;
     }
 }
