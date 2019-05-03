@@ -14,11 +14,11 @@ public class PoolBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        //BubbleManager.CollectBubble += ReleaseObject;
+        //Bubble.CollectBubble += ReleaseObject;
     }
     private void OnDisable()
     {
-        //BubbleManager.CollectBubble -= ReleaseObject;
+        //Bubble.CollectBubble -= ReleaseObject;
     }
 
     // Start is called before the first frame update

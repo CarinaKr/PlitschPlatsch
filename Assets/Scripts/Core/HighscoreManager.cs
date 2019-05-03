@@ -23,7 +23,7 @@ public class HighscoreManager : MonoBehaviour
         else
             currentHighscore = 0;
 
-        highscoreText.text = "Highscore: " + currentHighscore;
+        highscoreText.text = "" + currentHighscore;
     }
 
     //[MenuItem("Tools/PlayerPrefs/Clear all Player Prefs")]
@@ -51,7 +51,7 @@ public class HighscoreManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Highscore", points);
         highscoreText.color = newHighscoreColor;
-        highscoreText.text = "Highscore: " + points;
+        highscoreText.text = "" + points;
     }
 
     public void ResetTextColor()

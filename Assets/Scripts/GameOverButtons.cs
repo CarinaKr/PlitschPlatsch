@@ -26,6 +26,7 @@ public class GameOverButtons : MonoBehaviour
     public void BackToMenu()
     {
         sceneLoader.BackToMenu(SceneLoader.Scenes.GAME_OVER);
+        gameManager.gameSpeed = 1;
     }
 
     public void Quit(bool exit)

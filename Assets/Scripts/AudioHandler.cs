@@ -10,11 +10,11 @@ public class AudioHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        BubbleManager.CollectBubble += PlopBubble;
+        Bubble.CollectBubble += PlopBubble;
     }
     private void OnDisable()
     {
-        BubbleManager.CollectBubble -= PlopBubble;
+        Bubble.CollectBubble -= PlopBubble;
     }
 
     // Start is called before the first frame update

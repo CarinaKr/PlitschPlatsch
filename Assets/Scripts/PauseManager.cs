@@ -50,6 +50,7 @@ public class PauseManager : MonoBehaviour
     public void BackToMenu()
     {
         sceneLoader.BackToMenu(SceneLoader.Scenes.LEVEL);
+        gameManager.gameSpeed = 1;
     }
 
     public void Recalibrate()

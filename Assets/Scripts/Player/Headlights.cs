@@ -41,6 +41,13 @@ public class Headlights : MonoBehaviour
                 inputVar = proximityVar;
                 break;
         }
+
+        if (inputVar.value > 5)
+        {
+            SwitchOn();
+        }
+        else
+            SwitchOff();
     }
 
     // Update is called once per frame

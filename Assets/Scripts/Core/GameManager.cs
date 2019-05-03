@@ -46,25 +46,25 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BubbleManager.CollectBubble += CollectPoints;
+        Bubble.CollectBubble += CollectPoints;
     }
     private void OnDisable()
     {
-        BubbleManager.CollectBubble -= CollectPoints;
+        Bubble.CollectBubble -= CollectPoints;
     }
 
     public void ResetGame()
     {
         Time.timeScale = 1;
         points = 0;
-        pointsText.text = "Points: " + points;
+        pointsText.text = "" + points;
     }
 
     public void CollectPoints(GameObject obj)
     {
         //points += pointsPerBubble;
         points += Mathf.RoundToInt(Time.timeScale * pointsMultiplyFactor);
-        pointsText.text = "Points: " + points;
+        pointsText.text = ""+points;
     }
 
     public void Calibrate()
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isPlaying = false;
-        Time.timeScale = 1;
+        gameSpeed = 1;
         sceneLoader.LoadGameOver();
 
         highscoreManager.UpdateHighscore(points);
