@@ -7,16 +7,18 @@ using UnityEngine.UI;
 
 public class HighscoreManager : MonoBehaviour
 {
+    public bool isNewHighscore { get; private set; }
+    public int currentHighscore { get; private set; }
+
     [SerializeField] private Text highscoreText;
     [SerializeField] private Color newHighscoreColor,defaultHighscoreColor;
-
-    private int currentHighscore;
-    //private GameManager gameManager;
+    
+    private AudioHandler audioHandler;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioHandler = FindObjectOfType<AudioHandler>();
 
         if (PlayerPrefs.HasKey("Highscore"))
             currentHighscore = PlayerPrefs.GetInt("Highscore");
@@ -24,6 +26,7 @@ public class HighscoreManager : MonoBehaviour
             currentHighscore = 0;
 
         highscoreText.text = "" + currentHighscore;
+        ClearPlayerPrefs();
     }
 
     //[MenuItem("Tools/PlayerPrefs/Clear all Player Prefs")]
@@ -52,10 +55,13 @@ public class HighscoreManager : MonoBehaviour
         PlayerPrefs.SetInt("Highscore", points);
         highscoreText.color = newHighscoreColor;
         highscoreText.text = "" + points;
+        audioHandler.NewHighscore();
+        isNewHighscore = true;
     }
 
     public void ResetTextColor()
     {
         highscoreText.color = defaultHighscoreColor;
+        isNewHighscore = false;
     }
 }

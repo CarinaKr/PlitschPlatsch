@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioHandler : MonoBehaviour
 {
-    [SerializeField] private AudioClip bubblePlop;
+    public static AudioHandler self;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioClip bubblePlop, newHighscore;
+    [SerializeField] private AudioSource sfxSource, musicSource;
+    [SerializeField] private Button muteButton;
+    [SerializeField] private Sprite muteSprite, defaultSprite;
+    /*[SerializeField] [Range(0f, 1f)]*/  private  float sfxFullVolume,musicFullVolume;
+
+    private bool isMute;
 
     private void OnEnable()
     {
@@ -17,15 +24,61 @@ public class AudioHandler : MonoBehaviour
         Bubble.CollectBubble -= PlopBubble;
     }
 
+    private void Awake()
+    {
+        if (self == null)
+            self = this;
+        else if (self != this)
+            Destroy(gameObject);
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        sfxFullVolume = sfxSource.volume;
+        musicFullVolume = musicSource.volume;
+        CheckMute();
     }
 
     private void PlopBubble(GameObject gameObject)
     {
-        audioSource.clip = bubblePlop;
-        audioSource.Play();
+        sfxSource.clip = bubblePlop;
+        sfxSource.Play();
+    }
+
+    public void NewHighscore()
+    {
+        sfxSource.clip = bubblePlop;
+        sfxSource.Play();
+    }
+
+    public void Mute()
+    {
+        isMute = !isMute;
+        int mute = isMute ? 0 : 1;
+        PlayerPrefs.SetInt("Mute", mute);
+        CheckMute();
+    }
+
+    private void CheckMute()
+    {
+        if (PlayerPrefs.HasKey("Mute"))
+            isMute = PlayerPrefs.GetInt("Mute") == 0 ? true : false;
+        else
+            isMute = false;
+
+        if (isMute)
+        {
+            muteButton.GetComponent<Image>().sprite = muteSprite;
+            musicSource.volume = 0;
+            sfxSource.volume = 0;
+        }
+        else
+        {
+            muteButton.GetComponent<Image>().sprite = defaultSprite;
+            musicSource.volume = musicFullVolume;
+            sfxSource.volume = sfxFullVolume;
+        }
     }
 }

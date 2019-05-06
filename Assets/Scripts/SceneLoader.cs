@@ -49,8 +49,11 @@ public class SceneLoader : MonoBehaviour
             gameManager.ResetGame();
         }
 
-        if (scene.buildIndex == menuSceneNumber)
+        if (scene.buildIndex == gameOverSceneNumber)
+            FindObjectOfType<GameOverButtons>().SetText(highscoreManager.isNewHighscore,gameManager.points);
+        if (scene.buildIndex == menuSceneNumber || scene.buildIndex==gameSceneNumber)
             highscoreManager.ResetTextColor();
+
     }
 
     public void LoadGameOver()
@@ -85,14 +88,7 @@ public class SceneLoader : MonoBehaviour
 
     public void BackToMenu(Scenes scene)
     {
-        //levelAsync.allowSceneActivation = true;
-        //SceneManager.UnloadSceneAsync(gameSceneNumber);
-
-        //SceneManager.UnloadSceneAsync(gameOverSceneNumber);
-        //SceneManager.LoadScene(menuSceneNumber, LoadSceneMode.Additive);
-
         StartCoroutine("Back",scene);
-        
     }
 
     public IEnumerator Back(Scenes scene)

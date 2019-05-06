@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverButtons : MonoBehaviour
 {
     [SerializeField] private GameObject exitScreen;
+    [SerializeField] private Text pointsText;
 
     private GameManager gameManager;
     private SceneLoader sceneLoader;
@@ -35,6 +37,15 @@ public class GameOverButtons : MonoBehaviour
             Application.Quit();
         else
             exitScreen.SetActive(false);
+    }
+
+    public void SetText(bool isNewHighscore, int points)
+    {
+        if (isNewHighscore)
+            pointsText.text = "New Highscore: " + points;
+        else
+            pointsText.text = "Points: " + points;
+
     }
 
     private void Update()
