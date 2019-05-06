@@ -56,14 +56,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         points = 0;
-        pointsText.text = "" + points;
+        pointsText.text = "Points: " + points;
     }
 
     public void CollectPoints(GameObject obj)
     {
         //points += pointsPerBubble;
         points += Mathf.RoundToInt(Time.timeScale * pointsMultiplyFactor);
-        pointsText.text = ""+points;
+        pointsText.text = "Points: " + points;
     }
 
     public void Calibrate()

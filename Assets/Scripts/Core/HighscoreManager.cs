@@ -25,7 +25,7 @@ public class HighscoreManager : MonoBehaviour
         else
             currentHighscore = 0;
 
-        highscoreText.text = "" + currentHighscore;
+        highscoreText.text = "Highscore: " + currentHighscore;
         ClearPlayerPrefs();
     }
 
@@ -53,15 +53,15 @@ public class HighscoreManager : MonoBehaviour
     private void NewHighscore(int points)
     {
         PlayerPrefs.SetInt("Highscore", points);
-        highscoreText.color = newHighscoreColor;
-        highscoreText.text = "" + points;
+        //highscoreText.color = newHighscoreColor;
+        highscoreText.text = "Points: " + points;
         audioHandler.NewHighscore();
         isNewHighscore = true;
     }
 
     public void ResetTextColor()
     {
-        highscoreText.color = defaultHighscoreColor;
+        //highscoreText.color = defaultHighscoreColor;
         isNewHighscore = false;
     }
 }
