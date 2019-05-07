@@ -42,7 +42,7 @@ public class MenuButtons : MonoBehaviour
     public void StartGame()
     {
         gameManager.Calibrate();
-        buttons.SetActive(false);
+        //buttons.SetActive(false);
         sceneLoader.StartLevel(SceneLoader.Scenes.MENU);
     }
 

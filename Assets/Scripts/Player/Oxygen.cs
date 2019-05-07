@@ -8,6 +8,7 @@ public class Oxygen : MonoBehaviour
     [SerializeField] private Image oxygenFillImage;
     [SerializeField] private float maxOxygen, loseOxygenSpeed;
     [SerializeField] private float oxygenPerBubble, oxygenPerEnemy;
+    [SerializeField] private Animator playerAnimator;
 
     private GameManager gameManager;
     private float oxygenLeft;
@@ -55,7 +56,7 @@ public class Oxygen : MonoBehaviour
     private void ReduceOxygen(GameObject enemy)
     {
         oxygenLeft = Mathf.Max(oxygenLeft - oxygenPerEnemy, 0);
-
+        playerAnimator.SetTrigger("Collide");
     }
 
 }
