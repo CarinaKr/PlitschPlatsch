@@ -20,12 +20,15 @@ public class Headlights : MonoBehaviour
     [SerializeField] private SpriteRenderer headlightsRenderer;
     [SerializeField] private float maxEnergy, loseEnergySpeed, gainEnergySpeed;
     [SerializeField] private FloatVar lightVar, proximityVar;
-    [SerializeField] INPUT_TYPE inputType; 
+    [SerializeField] INPUT_TYPE inputType;
+
+    [SerializeField] private Text lightText, approxText, inputText;
 
 
     private GameManager gameManger;
     private float energyLeft;
     private FloatVar inputVar;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -62,25 +65,29 @@ public class Headlights : MonoBehaviour
         //        debugText.text = "" + proximityVar.value;
         //        break;
         //}
+        lightText.text = "Light: " + lightVar.value;
+        approxText.text = "Prox: " + proximityVar.value;
+        inputText.text = "input: " + inputVar.value;
+
         if (!gameManger.isPlaying)
             return;
 
-        if (isLightOn || inputVar.value>=5f)
-        {
-            if (!isLightOn) SwitchOn();
-            energyLeft -= loseEnergySpeed * Time.deltaTime ; 
-            if (energyLeft <= 0)
-            {
-                energyLeft = 0;
-                SwitchOff();
-            }
-        }
-        else if(!isLightOn && energyLeft<maxEnergy)
-        {
-            energyLeft = Mathf.Min(energyLeft + (gainEnergySpeed * Time.deltaTime), maxEnergy);
-        }
+        //if (isLightOn || inputVar.value>=5f)
+        //{
+        //    if (!isLightOn) SwitchOn();
+        //    energyLeft -= loseEnergySpeed * Time.deltaTime ; 
+        //    if (energyLeft <= 0)
+        //    {
+        //        energyLeft = 0;
+        //        SwitchOff();
+        //    }
+        //}
+        //else if(!isLightOn && energyLeft<maxEnergy)
+        //{
+        //    energyLeft = Mathf.Min(energyLeft + (gainEnergySpeed * Time.deltaTime), maxEnergy);
+        //}
 
-        energySlider.value = energyLeft / maxEnergy;
+        //energySlider.value = energyLeft / maxEnergy;
     }
 
     public void SwitchOn()

@@ -11,7 +11,8 @@ public class VibrationController : MonoBehaviour
 
     private static AndroidJavaObject vibrator;
     private static AndroidJavaClass vibrationEffect;
-    
+
+    private int usedAPI;
 
     // Start is called before the first frame update
     void Start()
@@ -21,19 +22,16 @@ public class VibrationController : MonoBehaviour
             vibrator = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity")// Get the Current Activity from the Unity Player.
                 .Call<AndroidJavaObject>("getSystemService", "vibrator");// Then get the Vibration Service from 
 
-            if(UsedAPI()>=26)
+            usedAPI = UsedAPI();
+            if(usedAPI>=26)
             {
                 vibrationEffect = new AndroidJavaClass("android.os.VibrationEffect");
             }
         }      
     }
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private static int UsedAPI()
     {
         if (UsingAndroid())
