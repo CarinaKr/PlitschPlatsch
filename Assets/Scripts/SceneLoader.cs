@@ -50,6 +50,8 @@ public class SceneLoader : MonoBehaviour
         {
             gameManager.ResetGame();
         }
+        if(scene.buildIndex==menuSceneNumber)
+            gameManager.isTutorialDone = false;
 
         if (scene.buildIndex == gameOverSceneNumber)
             FindObjectOfType<GameOverButtons>().SetText(highscoreManager.isNewHighscore,gameManager.points);

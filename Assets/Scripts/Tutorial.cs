@@ -20,6 +20,7 @@ public class Tutorial : MonoBehaviour
 
     private TutorialStep tutorialStep;
     private GameManager gameManager;
+    private bool isPaused;
 
     // Start is called before the first frame update
     void Start()
@@ -55,14 +56,40 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator StartTutorial()
     {
-        yield return new WaitForSeconds(delayToStart);
+        //yield return new WaitForSeconds(delayToStart);
+        yield return Wait(delayToStart);
         SwitchStep(TutorialStep.TILT);
-        yield return new WaitForSeconds(timeShowTilt);
+        //yield return new WaitForSeconds(timeShowTilt);
+        yield return Wait(timeShowTilt);
         SwitchStep(TutorialStep.IDLE);
-        yield return new WaitForSeconds(delayToSensor);
+        //yield return new WaitForSeconds(delayToSensor);
+        yield return Wait(delayToSensor);
         SwitchStep(TutorialStep.SENSOR);
-        yield return new WaitForSeconds(timeShowSensor);
+        //yield return new WaitForSeconds(timeShowSensor);
+        yield return Wait(timeShowSensor);
         SwitchStep(TutorialStep.IDLE);
         TutorialDone.Invoke(true);
+    }
+
+    private IEnumerator Wait(float time)
+    {
+        float totalTime = time;
+        while(totalTime>0)
+        {
+            yield return new WaitForEndOfFrame();
+            if(!isPaused)
+                totalTime -= Time.deltaTime;
+        }
+        
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Continue()
+    {
+        isPaused = false;
     }
 }
