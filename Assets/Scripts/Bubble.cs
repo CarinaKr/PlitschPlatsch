@@ -35,10 +35,6 @@ public class Bubble : Collidable
             foreground.enabled = false;
             background.enabled = true;
         }
-        else if(isLightActive)
-        {
-            int i = 0;
-        }
     }
 
     protected override void TriggerCollision()
