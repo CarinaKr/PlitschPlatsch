@@ -14,8 +14,7 @@ public class Spawner : MonoBehaviour
     private GameManager gameManager;
     private int lastPosition;
     private float time=Mathf.Infinity;
-
-    //private bool isBubble;
+    private bool isLastBubbleActive;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +39,7 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
-        bool isBubble = Random.Range(0f, 1f) < chanceEnemy ? false : true;
+        bool isBubble = Random.Range(0f, 1f) < chanceEnemy && gameManager.isTutorialDone ? false : true;
         GameObject nextObj = null;
 
         if (isBubble)
@@ -58,8 +57,16 @@ public class Spawner : MonoBehaviour
 
         if (isBubble)
         {
-            float active = Random.Range(0f, 1f);
-            nextObj.GetComponent<Bubble>().isLightActive = active <= chanceDarkActive ? false : true;
+            if (gameManager.isTutorialDone)
+            {
+                float active = Random.Range(0f, 1f);
+                nextObj.GetComponent<Bubble>().isLightActive = active <= chanceDarkActive ? false : true;
+            }
+            else
+            {
+                nextObj.GetComponent<Bubble>().isLightActive = !isLastBubbleActive;
+                isLastBubbleActive = !isLastBubbleActive;
+            }
         }
     }
 
@@ -98,4 +105,6 @@ public class Spawner : MonoBehaviour
 
         return nextPosDifF;
     }
+
+    
 }
