@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         Time.timeScale = 1;
+        isTutorialDone = false;
         points = 0;
         pointsText.text = "Points: " + points;
     }

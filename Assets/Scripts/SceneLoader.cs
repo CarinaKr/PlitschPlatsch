@@ -19,6 +19,7 @@ public class SceneLoader : MonoBehaviour
     private GameManager gameManager;
     private HighscoreManager highscoreManager;
     private AsyncOperation levelAsync;
+    private AudioHandler audioHandler;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
 
         SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        audioHandler = FindObjectOfType<AudioHandler>();
     }
 
     private void OnEnable()
@@ -84,6 +86,7 @@ public class SceneLoader : MonoBehaviour
                 break;
         }
         levelAsync.allowSceneActivation = true;
+        audioHandler.StartGame();
     }
 
     public void BackToMenu(Scenes scene)
