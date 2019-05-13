@@ -7,14 +7,11 @@ public class MenuButtons : MonoBehaviour
 {
     [SerializeField] private GameObject creditsScreen, tutorialScreen, exitScreen;
     [SerializeField] private GameObject buttons;
-    [SerializeField] private GameObject[] creditsPageButtonTextPage1, creditsPageButtonTextPage2;
-    [SerializeField] private GameObject creditsPage1, creditsPage2;
 
     private MenuState menuState;
     private AsyncOperation levelAsync;
     private GameManager gameManager;
     private SceneLoader sceneLoader;
-    private int creditsPage;
 
     public enum MenuState
     {
@@ -34,20 +31,6 @@ public class MenuButtons : MonoBehaviour
     {
         creditsScreen.SetActive(true);
         menuState = MenuState.CREDITS;
-    }
-
-    public void CreditsTogglePage()
-    {
-        creditsPage = (creditsPage + 1) % 2;
-        
-            foreach (GameObject obj in creditsPageButtonTextPage1)
-                obj.SetActive(creditsPage==0? true:false);
-            creditsPage1.SetActive(creditsPage == 0 ? true : false);
-
-            foreach (GameObject obj in creditsPageButtonTextPage2)
-                obj.SetActive(creditsPage == 0 ? false : true);
-            creditsPage2.SetActive(creditsPage == 0 ? false : true);
-        
     }
 
     public void ShowTutorial()

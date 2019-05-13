@@ -5,11 +5,7 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private GameObject[] tutorialScreens;
-    [SerializeField] private Tutorial tutorial;
 
-
-    private Dictionary<GameObject,bool> tutorialActive;
     private bool isPaused;
     private GameManager gameManager;
     private SceneLoader sceneLoader;
@@ -18,11 +14,6 @@ public class PauseManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         sceneLoader = FindObjectOfType<SceneLoader>();
-        tutorialActive = new Dictionary<GameObject, bool>();
-        foreach (GameObject obj in tutorialScreens)
-        {
-            tutorialActive.Add(obj, obj.activeSelf);
-        }
     }
 
     private void OnApplicationPause(bool pause)
@@ -47,15 +38,6 @@ public class PauseManager : MonoBehaviour
         pauseScreen.SetActive(true);
         Time.timeScale = 0;
         isPaused = true;
-        if (!gameManager.isTutorialDone)
-        {
-            foreach (GameObject obj in tutorialScreens)
-            {
-                tutorialActive[obj]=obj.activeSelf;
-                obj.SetActive(false);
-            }
-            tutorial.Pause();
-        }
     }
 
     public void Continue()
@@ -63,17 +45,6 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
-        if (!gameManager.isTutorialDone)
-        {
-            tutorial.Continue();
-            foreach (GameObject obj in tutorialScreens)
-            {
-                if (tutorialActive[obj])
-                {
-                    obj.SetActive(true);
-                }
-            }
-        }
     }
 
     public void BackToMenu()

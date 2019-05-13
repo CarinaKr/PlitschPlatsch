@@ -7,7 +7,7 @@ public class AudioHandler : MonoBehaviour
 {
     public static AudioHandler self;
 
-    [SerializeField] private AudioClip bubblePlop, collideEnemy,startGame, newHighscore, gameOver;
+    [SerializeField] private AudioClip bubblePlop, newHighscore, collideEnemy;
     [SerializeField] private AudioSource sfxSource, musicSource;
     [SerializeField] private Button muteButton;
     [SerializeField] private Sprite muteSprite, defaultSprite;
@@ -55,21 +55,9 @@ public class AudioHandler : MonoBehaviour
         sfxSource.Play();
     }
 
-    public void StartGame()
-    {
-        sfxSource.clip = startGame;
-        sfxSource.Play();
-    }
-
     public void NewHighscore()
     {
-        sfxSource.clip = newHighscore;
-        sfxSource.Play();
-    }
-
-    public void GameOver()
-    {
-        sfxSource.clip = gameOver;
+        sfxSource.clip = bubblePlop;
         sfxSource.Play();
     }
 

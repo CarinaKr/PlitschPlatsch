@@ -22,7 +22,6 @@ public abstract class Collidable : MonoBehaviour
     {
         if (collision.transform.tag == "Player" && foreground.enabled)
         {
-            isCollided = true;
             TriggerCollision();
             animator.SetTrigger("Attack");
             StartCoroutine("ReleaseObject", gameObject);
@@ -31,8 +30,8 @@ public abstract class Collidable : MonoBehaviour
 
     private IEnumerator ReleaseObject(GameObject obj)
     {
+        isCollided = true;
         yield return new WaitForSeconds(releaseDelay);
-        isCollided = false;
         pool.ReleaseObject(obj);
     }
 

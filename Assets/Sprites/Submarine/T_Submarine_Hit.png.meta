@@ -4,8 +4,6 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: T_Submarine_Hit_0
     21300002: T_Submarine_Hit_1
-    21300004: T_Submarine_Hit_2
-    21300006: T_Submarine_Hit_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -113,33 +111,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de4379654e3c9046bee186766f42086
+      spriteID: 87424b117508eda4c981d6d2e30753ff
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: T_Submarine_Hit_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8714e787cf928a94b9e2e6e3718bcb96
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T_Submarine_Hit_2
       rect:
         serializedVersion: 2
         x: 512
@@ -153,27 +131,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd882cd341d7ca0419674509bc878332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T_Submarine_Hit_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d87aa529ea943cd4990e60a1d6ee98df
+      spriteID: 80aca247c29da1a4490fd2c9034ed7d5
       vertices: []
       indices: 
       edges: []

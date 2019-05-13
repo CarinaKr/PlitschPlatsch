@@ -43,10 +43,6 @@ public class HighscoreManager : MonoBehaviour
             {
                 NewHighscore(newPoints);
             }
-            else
-            {
-                audioHandler.GameOver();
-            }
         }
         else
             NewHighscore(newPoints);

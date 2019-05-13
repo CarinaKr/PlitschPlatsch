@@ -33,7 +33,7 @@ public class Oxygen : MonoBehaviour
 
     private void Update()
     {
-        if (!gameManager.isPlaying || !gameManager.isTutorialDone)
+        if (!gameManager.isPlaying)
             return;
 
         oxygenLeft -= loseOxygenSpeed * Time.deltaTime * Mathf.Pow(gameManager.gameSpeed,2f);
@@ -59,5 +59,4 @@ public class Oxygen : MonoBehaviour
         playerAnimator.SetTrigger("Collide");
     }
 
-    
 }
