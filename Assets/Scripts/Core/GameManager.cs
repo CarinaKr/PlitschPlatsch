@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Vector3 calibratedTilt { get; private set; }
     public bool isPlaying { get; set; }
     public int points { get; set; }
+    public bool isTutorialDone { get; set; }
 
     private int highscore;
     private HighscoreManager highscoreManager;
@@ -46,10 +47,12 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Bubble.CollectBubble += CollectPoints;
+        Tutorial.TutorialDone += OnTutorialDone;
     }
     private void OnDisable()
     {
         Bubble.CollectBubble -= CollectPoints;
+        Tutorial.TutorialDone -= OnTutorialDone;
     }
 
     public void ResetGame()
@@ -87,5 +90,8 @@ public class GameManager : MonoBehaviour
         highscoreManager.UpdateHighscore(points);
     }
 
-   
+    private void OnTutorialDone(bool done)
+    {
+        isTutorialDone = done;
+    }
 }
